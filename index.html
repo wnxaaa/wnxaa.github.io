@@ -13,11 +13,17 @@
         <h1>WNX's blog</h1>
     </header>
     <main>
-        <p>暂时没什么内容~</p>
+        <p id="content">暂时没什么内容~</p>
     </main>
     <footer>
         <p>更新时间：2025/03/18 &copy;ynqxg.com</p>
     </footer>
+    <script>
+        fetch("./README.md")
+            .then(res => {
+                document.querySelector("#content").innerHTML = JSON.stringify(res)
+            })
+    </script>
 </body>
 
 </html>
