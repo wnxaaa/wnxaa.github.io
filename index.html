@@ -13,16 +13,54 @@
         <h1>WNX's blog</h1>
     </header>
     <main>
-        <p id="content">暂时没什么内容~</p>
+        <p id="back">返回首页</p>
+        <ul id="content">加载中~</ul>
     </main>
     <footer>
         <p>更新时间：2025/03/18 &copy;ynqxg.com</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        fetch("./README.md")
-            .then(res => {
-                document.querySelector("#content").innerHTML = JSON.stringify(res)
+        var contentDom = document.querySelector("#content")
+        var back = document.querySelector("#back")
+        back.style.visibility = "hidden"
+        back.addEventListener("click", () => {
+            loadMenu()
+            back.style.visibility = "hidden"
+        })
+
+        function loadArticle(src) {
+            axios({
+                method: 'get',
+                url: src,
+            }).then(res => {
+                contentDom.innerHTML = marked.marked(res.data)
+                back.style.visibility = "visible"
             })
+        }
+        function loadMenu() {
+            axios({
+                method: 'get',
+                url: '/menu.json',
+            })
+                .then(function (res) {
+                    if (res.status == 200) {
+                        if (res.data) {
+                            contentDom.innerHTML = ""
+                            res.data.forEach(item => {
+                                var dom = document.createElement("li")
+                                dom.innerHTML = item.name;
+                                dom.addEventListener("click", () => {
+                                    loadArticle(item.src)
+                                })
+                                contentDom.appendChild(dom)
+                            });
+                        }
+                    }
+                });
+        }
+        loadMenu()
     </script>
 </body>
 

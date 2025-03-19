@@ -26,7 +26,7 @@ p {
 }
 
 header {
-    padding: 3rem 0;
+    padding-top: 3rem;
 }
 
 main {
@@ -37,8 +37,19 @@ footer {
     padding: 1rem 0;
 }
 
-main p {
+main>p {
+    margin-top: 1rem;
     color: #606060;
+    text-align: center;
+}
+
+main ul {
+    padding-top: 2rem;
+}
+
+main li {
+    color: #606060;
+    text-align: center;
 }
 
 footer p {
