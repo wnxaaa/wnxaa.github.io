@@ -1,67 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wnxaa</title>
-    <link href="/style.css" rel="stylesheet">
-</head>
-
-<body>
-    <header>
-        <h1>WNX's blog</h1>
-    </header>
-    <main>
-        <p id="back">返回首页</p>
-        <ul id="content">加载中~</ul>
-    </main>
-    <footer>
-        <p>更新时间：2025/03/18 &copy;ynqxg.com</p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
-        var contentDom = document.querySelector("#content")
-        var back = document.querySelector("#back")
-        back.style.visibility = "hidden"
-        back.addEventListener("click", () => {
-            loadMenu()
-            back.style.visibility = "hidden"
-        })
-
-        function loadArticle(src) {
-            axios({
-                method: 'get',
-                url: src,
-            }).then(res => {
-                contentDom.innerHTML = marked.marked(res.data)
-                back.style.visibility = "visible"
-            })
-        }
-        function loadMenu() {
-            axios({
-                method: 'get',
-                url: '/menu.json',
-            })
-                .then(function (res) {
-                    if (res.status == 200) {
-                        if (res.data) {
-                            contentDom.innerHTML = ""
-                            res.data.forEach(item => {
-                                var dom = document.createElement("li")
-                                dom.innerHTML = item.name;
-                                dom.addEventListener("click", () => {
-                                    loadArticle(item.src)
-                                })
-                                contentDom.appendChild(dom)
-                            });
-                        }
-                    }
-                });
-        }
-        loadMenu()
-    </script>
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wnxaaa</title>
+    <link rel="stylesheet" href="src/assets/css/default.min.css">
+    <link rel="stylesheet" href="src/assets/css/atom-one-dark.min.css">
+  </head>
+  <body>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
