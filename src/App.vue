@@ -4,7 +4,6 @@ import { ref } from "vue";
 import axios from "axios";
 
 import { Marked } from "marked";
-import markedCodePreview from "marked-code-preview";
 import { markedHighlight } from "marked-highlight";
 
 import hljs from 'highlight.js';
@@ -16,12 +15,13 @@ hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('kotlin', kotlin);
 hljs.registerLanguage('xml', xml);
 
+const url = new URL(window.location);
+const params = new URLSearchParams(url.search);
+const page = params.get('page');
 
 const isMenu = ref(false);
 const menuList = ref([]);
 const content = ref("");
-
-changePage(true);
 
 // 配置marked
 const marked = new Marked(
@@ -34,7 +34,6 @@ const marked = new Marked(
     }
   })
 );
-marked.use(markedCodePreview())
 // Set options
 marked.use({
   async: true,
@@ -46,9 +45,12 @@ marked.use({
 function loadArticle(src) {
   axios.get(src)
     .then(async res => {
+      console.log(res);
       changePage(false);
       // md转html并赋值
       content.value = await marked.parse(res.data);
+    }).catch(err => {
+      loadMenu();
     });
 }
 // 加载目录
@@ -67,8 +69,15 @@ function loadMenu() {
 function changePage(menu) {
   isMenu.value = menu;
 }
-// 加载目录
-loadMenu();
+
+changePage(!page);
+
+if (!page) {
+  // 加载目录
+  loadMenu();
+} else {
+  loadArticle("/md/" + page + ".md")
+}
 
 </script>
 
@@ -87,7 +96,7 @@ loadMenu();
     <div v-if="!isMenu" v-html="content" />
   </main>
   <footer>
-    <p>更新时间：2025/03/18 &copy;ynqxg.com</p>
+    <p> &copy;ynqxg.com</p>
   </footer>
 </template>
 
