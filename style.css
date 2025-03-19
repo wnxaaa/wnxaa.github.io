@@ -11,12 +11,22 @@ body {
     flex-direction: column;
     height: 100vh;
     overflow: auto;
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 500;
+    color: #303030;
+    line-height: 2;
 }
 
 h1 {
-    font-weight: 500;
     font-size: 2rem;
-    color: #303030;
     text-align: center;
 }
 
@@ -47,9 +57,13 @@ main ul {
     padding-top: 2rem;
 }
 
-main li {
+main>ul>li {
     color: #606060;
     text-align: center;
+    background-color: #f1f1f1;
+    margin-top: 1rem;
+    padding: 1rem;
+    cursor: pointer;
 }
 
 footer p {
