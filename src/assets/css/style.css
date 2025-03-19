@@ -14,6 +14,12 @@ body {
     line-height: 1.5;
 }
 
+header,
+main,
+footer {
+    display: block;
+}
+
 h1,
 h2,
 h3,
@@ -59,7 +65,7 @@ main ul {
 main>ul>li {
     color: #606060;
     text-align: center;
-    background-color: #f1f1f1;
+    background-color: #fafbfc;
     border-radius: 1rem;
     margin-top: 1rem;
     padding: .3rem;
