@@ -45,12 +45,12 @@ marked.use({
 function loadArticle(src) {
   axios.get(src)
     .then(async res => {
-      console.log(res);
+      window.location.herf = "/?page=" + src.replaceAll("/md/", "").replaceAll(".md", "")
       changePage(false);
       // md转html并赋值
       content.value = await marked.parse(res.data);
     }).catch(err => {
-      loadMenu();
+      window.location.push("/")
     });
 }
 // 加载目录
