@@ -16,6 +16,7 @@ hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('kotlin', kotlin);
 hljs.registerLanguage('xml', xml);
 
+changePage(true);
 
 const isMenu = ref(false);
 const menuList = ref([]);
@@ -42,36 +43,31 @@ marked.use({
 
 // 加载文章
 function loadArticle(src) {
-  axios({
-    method: 'get',
-    url: src,
-  }).then(async res => {
-    changePage();
-    // md转html并赋值
-    content.value = await marked.parse(res.data);
-  });
+  axios.get(src)
+    .then(async res => {
+      changePage(false);
+      // md转html并赋值
+      content.value = await marked.parse(res.data);
+    });
 }
 // 加载目录
 function loadMenu() {
-  axios({
-    method: 'get',
-    url: '/menu.json',
-  })
+  axios.get("/menu.json")
     .then(function (res) {
       changePage(true);
       if (res.status == 200) {
         if (res.data) {
-          menuList.value = res.data
+          menuList.value = res.data;
         }
       }
     });
 }
 // 控制dom的展示和隐藏，以达到跳转页面的目的
 function changePage(menu) {
-  isMenu.value = menu
+  isMenu.value = menu;
 }
 // 加载目录
-loadMenu()
+loadMenu();
 
 </script>
 
