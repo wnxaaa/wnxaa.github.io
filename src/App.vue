@@ -16,11 +16,12 @@ hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('kotlin', kotlin);
 hljs.registerLanguage('xml', xml);
 
-changePage(true);
 
 const isMenu = ref(false);
 const menuList = ref([]);
 const content = ref("");
+
+changePage(true);
 
 // 配置marked
 const marked = new Marked(
